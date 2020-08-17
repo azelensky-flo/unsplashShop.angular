@@ -1,0 +1,39 @@
+<div class="container">
+  <div class="header">
+    <div class="four">
+      <h1>Internet shop wallpapers</h1>
+    </div>
+    <button class="cart" routerLink="/cart" mat-fab color="primary">
+      <mat-icon>delete</mat-icon>
+      <span *ngIf="checkedItemBay.length > 0" matBadgeColor="accent" matBadge="{{checkedItemBay.length}}" matBadgeOverlap="false"></span>
+    </button>
+  </div>
+  <div class="wrapper">
+    <div class="parameters">
+      <app-search-form></app-search-form>
+      <app-filters></app-filters>
+    </div>
+    <div class="bayItem"
+         infiniteScroll
+         [infiniteScrollDistance]="2"
+         [infiniteScrollThrottle]="50"
+         [fromRoot]="true"
+         (scrolled)="onScroll()"
+    >
+      <div class="picture" *ngFor="let p of picture">
+        <div class="picture__container">
+          <div class="price">
+            <p>{{p.width | currency:'USD':'symbol-narrow':'1.0-0'}}</p>
+          </div>
+          <mat-checkbox
+            color="primary"
+            [(ngModel)]="p.isChecked"
+            (change)="changeStatus(p)"
+          ></mat-checkbox>
+          <img src={{p.urls.small}} alt="#">
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+

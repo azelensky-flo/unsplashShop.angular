@@ -1,0 +1,81 @@
+<div class="container">
+  <!--<button (click)="log()">log</button>-->
+  <div class="wrapper">
+    <div class="items" *ngIf="shopItemsBay.length !== 0; else empty">
+      <div class="bayItem">
+        <div class="picture" *ngFor="let itemBay of shopItemsBay">
+          <div class="picture__container">
+            <div class="price">
+              <p>{{itemBay.width | currency:'USD':'symbol-narrow':'1.0-0'}}</p>
+            </div>
+            <button
+              mat-button
+              color="warn"
+              class="deleteItem"
+              (click)="deleteItem(itemBay.id)"
+              >
+              <mat-icon>delete</mat-icon>
+            </button>
+            <img src={{itemBay.urls.small}} alt="#">
+          </div>
+        </div>
+      </div>
+    </div>
+    <ng-template #empty>
+      <div  class="empty">
+        <p>Your cart is empty</p>
+        <button mat-raised-button color="primary" (click)="router.navigate([''])">Back to store</button>
+      </div>
+    </ng-template>
+    <div class="buyBlock">
+      <div class="subtotal">
+        <div class="subtotal_wrapper">
+          <p class="descr">Subtotal ({{shopItemsBay.length}} items )</p>
+          <p class="sumItems">{{sumAllItems | currency:'USD':'symbol-narrow':'1.0-0'}}</p>
+          <button
+            class="buyButton"
+            mat-raised-button color="accent"
+            (click)="bayPicture()"
+            [disabled]="shopItemsBay.length === 0"
+          >Proceed to buy</button>
+        </div>
+      </div>
+      <div class="promoWrapper">
+        <div class="promo">
+          <mat-form-field class="promocodeInput">
+            <input matInput type="text" [formControl]="promocode">
+            <button mat-button *ngIf="promocode"
+                    matSuffix mat-icon-button aria-label="Clear"
+                    (click)="promocode.setValue('')">
+              <mat-icon (click)="clearForm()">close</mat-icon>
+            </button>
+          </mat-form-field>
+          <p>Enter your promocode</p>
+        </div>
+        <button mat-raised-button color="accent" (click)="applyPromocode()">Apply</button>
+      </div>
+
+    </div>
+    <div *ngIf="proceedBuy" class="proceedBuy">
+      <div *ngIf="successBuy === 1; else unSuccess" class="successBuy">
+        <p>Your order has been successfully completed</p>
+        <button mat-raised-button color="accent" (click)="router.navigate([''])">ok</button>
+      </div>
+      <ng-template  #unSuccess>
+        <div class="unSuccessBuy">
+          <p>Your payment is not success</p>
+          <p>Please try again</p>
+          <button mat-raised-button color="accent" (click)="proceedBuy = false">ok</button>
+        </div>
+      </ng-template>
+    </div>
+  </div>
+  <div *ngIf="preloader.status" class="preloader">
+    <mat-progress-spinner
+      class="example-margin"
+      [color]="preloader.color"
+      [mode]="preloader.mode"
+      [value]="preloader.value">
+    </mat-progress-spinner>
+  </div>
+</div>

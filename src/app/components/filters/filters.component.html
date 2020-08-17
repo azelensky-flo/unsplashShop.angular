@@ -1,0 +1,21 @@
+<div class="filterItem">
+  <mat-form-field appearance="fill">
+    <mat-label>Select color</mat-label>
+    <mat-select [formControl]="selectedColor"  name="color">
+      <mat-option *ngFor="let color of colors" [value]="color.value">
+        {{color.viewValue}}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+</div>
+
+<div class="filterItem">
+  <mat-form-field appearance="fill">
+    <mat-label>Select orientation</mat-label>
+    <mat-select [formControl]="selectOrientation" name="orientation">
+      <mat-option *ngFor="let orientation of orientations" [value]="orientation.value">
+        {{orientation.viewValue}}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+</div>
