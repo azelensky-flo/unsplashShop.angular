@@ -6,6 +6,7 @@ interface Urls {
   regular: string;
 }
 
+
 export interface PictureDate {
   id: string;
   urls: Urls;
@@ -44,5 +45,9 @@ export interface Preloader {
   color: ThemePalette;
   mode: ProgressSpinnerMode;
   value: number;
+}
 
+export interface Order {
+  shopItemsBay: PictureDate[];
+  sumAllItems: number;
 }
